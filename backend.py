@@ -77,7 +77,7 @@ async def vagas_b():
     except Error as e: 
         return {'Erro': str(e)}
 
-@app.post('/inserir/{vaga}')
+@app.post('/inserir/vaga/{vaga}')
 async def criar_vaga(vaga: Vaga):
     try:
         # Inserir a vaga na tabela `vaga`
