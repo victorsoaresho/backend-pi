@@ -45,8 +45,8 @@ async def vagas():
     except Error as e: 
         return {'Erro': str(e)}
 
-# Puxar vagas pelo filtro (Front End)
-@app.get('/vagas/front')
+# Puxar vagas pelo filtro 
+@app.get('/vagas/{tipo}')
 async def vagas_f():
     try:
         query = """
@@ -54,23 +54,7 @@ async def vagas_f():
         FROM vaga v
         JOIN vaga_filtro vf ON v.id = vf.vaga_id
         JOIN filtro_vaga fv ON vf.filtro_id = fv.id
-        WHERE fv.tipo = 'Front End';
-        """
-        vagas = funcionalidades.consulta(query)
-        return {'vagas': vagas}
-    except Error as e: 
-        return {'Erro': str(e)}
-
-# Puxar vagas pelo filtro (Back End)
-@app.get('/vagas/back')
-async def vagas_b():
-    try:
-        query = """
-        SELECT v.*
-        FROM vaga v
-        JOIN vaga_filtro vf ON v.id = vf.vaga_id
-        JOIN filtro_vaga fv ON vf.filtro_id = fv.id
-        WHERE fv.tipo = 'Back End';
+        WHERE fv.tipo = '{tipo}';
         """
         vagas = funcionalidades.consulta(query)
         return {'vagas': vagas}
